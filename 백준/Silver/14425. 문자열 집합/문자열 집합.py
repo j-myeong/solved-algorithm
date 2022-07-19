@@ -1,4 +1,9 @@
-tmp = input().split(' ')
+import sys
+
+
+input = sys.stdin.readline
+
+tmp = input().strip().split(' ')
 
 n = int(tmp[0])
 m = int(tmp[1])
