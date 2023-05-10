@@ -1,15 +1,18 @@
-test = int(input())
+case = int(input())
 
-for _ in range(test):
-    stack = []
-    tmp = input()
-    flag = True
-    for char in tmp:
-        if char == '(': stack.append('(')
-        else:
-            if len(stack) == 0:
-                flag = False
-                break
-            else:
-                stack.pop()
-    print('YES' if flag and len(stack) == 0 else 'NO')
+for _ in range(case):
+  flag = True
+  stack = []
+  string = input()
+  cnt = 0
+  for char in string:
+    cnt += 1
+    if char == '(':
+      stack.append('(')
+    else:
+      if not stack:
+        flag = False
+        break
+      else:
+        stack.pop()
+  print('YES') if not stack and flag else print('NO')
