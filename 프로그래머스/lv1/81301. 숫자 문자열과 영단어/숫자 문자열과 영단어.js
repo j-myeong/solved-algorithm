@@ -12,6 +12,7 @@ function solution(s) {
         nine: 9
     };
     
-    Object.keys(dict).forEach((str) => { s = s.replaceAll(str, dict[str])});
+    Object.keys(dict).forEach(item => s = s.replaceAll(item, dict[item]));
     return +s;
+    
 }
