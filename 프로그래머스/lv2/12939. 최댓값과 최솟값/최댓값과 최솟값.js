@@ -1,13 +1,13 @@
 function solution(s) {
-    let max;
-    let min;
-    s.split(" ").forEach((data, idx) => {
-        if (idx == 0) {
-            max = +data;
-            min = +data;
-        }
-        else if (max < +data) max = +data;
-        else if (min > +data) min = +data;
-    });
-    return min + " " + max
+    const tmp = s.split(" ");
+    let max = +tmp[0];
+    let min = +tmp[0];
+    
+    tmp.forEach(item => {
+        if (+item < min) min = +item;
+        if (+item > max) max = +item;
+    })
+    
+    return `${min} ${max}`;
+    // ["1", "2", ...]
 }
