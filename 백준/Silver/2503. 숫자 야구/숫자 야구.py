@@ -1,39 +1,70 @@
-case = int(input())
-hints = []
-for _ in range(case):
-    hints.append(input().split())
+import sys
 
+sys.setrecursionlimit(9999999)
+
+
+def checker(idx, number):
+    _number = hint[idx][0]
+    _strike = hint[idx][1]
+    _ball = hint[idx][2]
+
+    strike = 0
+    ball = 0
+
+    _A = _number // 100
+    _B = (_number - (_A * 100)) // 10
+    _C = _number % 10
+
+    A = number // 100
+    B = (number - (A * 100)) // 10
+    C = number % 10
+
+    if A == 0 or B == 0 or C == 0:
+        return False
+
+    if A == B or A == C or B == C:
+        return False
+
+    if A == _A:
+        strike += 1
+    if B == _B:
+        strike += 1
+    if C == _C:
+        strike += 1
+
+    if A == _B or A == _C:
+        ball += 1
+    if B == _A or B == _C:
+        ball += 1
+    if C == _A or C == _B:
+        ball += 1
+
+    if strike == _strike and ball == _ball:
+        return True
+
+    return False
+
+
+def recur(idx, number):
+    global answer
+
+    if idx == n:
+        answer += 1
+        # print(number)
+        recur(0, number + 1)
+        return
+
+    if number == 1000:
+        return
+
+    if checker(idx, number):
+        recur(idx + 1, number)
+    else:
+        recur(0, number + 1)
+
+
+n = int(input())
+hint = [list(map(int, input().split())) for _ in range(n)]
 answer = 0
-for hund in range(1, 10):
-    for ten in range(1, 10):
-        for one in range(1, 10):
-            if hund == ten or ten == one or one == hund:
-                continue
-
-            counter = 0
-            for hint in hints:
-
-                strike = 0
-                ball = 0
-
-                if int(hint[0][0]) == hund:
-                    strike += 1
-                if int(hint[0][1]) == ten:
-                    strike += 1
-                if int(hint[0][2]) == one:
-                    strike += 1
-
-                if int(hint[0][0]) == ten or int(hint[0][0]) == one:
-                    ball += 1
-                if int(hint[0][1]) == hund or int(hint[0][1]) == one:
-                    ball += 1
-                if int(hint[0][2]) == hund or int(hint[0][2]) == ten:
-                    ball += 1
-
-                if strike == int(hint[1]) and ball == int(hint[2]):
-                    counter += 1
-
-            if counter == case:
-                answer += 1
-
+recur(0, 100)
 print(answer)
